@@ -108,9 +108,9 @@ export function DepositModal({ isOpen, onClose }: { isOpen: boolean, onClose: ()
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 to-transparent" />
               <p className="text-[10px] text-white/30 mb-3 font-black uppercase tracking-widest">عنوان المحفظة الخاص بنا (TRC20)</p>
               <div className="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 group-hover:border-primary/20 transition-all">
-                <span className="text-xs font-mono truncate mr-2 text-white/60">T7xR2sW9...pQ4zV</span>
+                <span className="text-xs font-mono truncate mr-2 text-white/60">TX2GzHPm27LutkfCEHPxRxaHui2kRY9q5a</span>
                 <button 
-                  onClick={() => navigator.clipboard.writeText('T7xR2sW9...pQ4zV')}
+                  onClick={() => navigator.clipboard.writeText('TX2GzHPm27LutkfCEHPxRxaHui2kRY9q5a')}
                   className="bg-primary text-black text-[10px] font-black px-5 py-2.5 rounded-xl shrink-0 active:scale-95 transition-all shadow-lg shadow-primary/10"
                 >
                   نسخ العنوان
