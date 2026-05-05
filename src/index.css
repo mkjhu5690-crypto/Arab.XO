@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: #D4AF37;
+  --color-primary-light: #F9E79F;
+  --color-accent: #C5A028;
+  --color-dark: #0a0a0a;
+  --color-dark-surface: #161616;
+}
+
+@layer base {
+  body {
+    @apply bg-[#0a0a0a] text-white font-sans selection:bg-primary/30 selection:text-white;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-black font-black py-4 px-6 rounded-2xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all;
+  }
+  
+  .card-premium {
+    @apply bg-[#161616]/80 backdrop-blur-xl border border-white/5 rounded-[2.5rem] shadow-2xl;
+  }
+}
+
+.rtl-container {
+  direction: rtl;
+}
+
+/* Custom scrollbar for a cleaner mobile look */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+

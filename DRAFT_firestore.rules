@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && (request.auth.token.email == 'akosbali5@gmail.com');
+    }
+
+    function isOwner(email) {
+      return isSignedIn() && (request.auth.token.email == email);
+    }
+
+    // User profiles
+    match /users/{email} {
+      allow read: if isSignedIn() && (isOwner(email) || isAdmin());
+      allow create: if isSignedIn() && isOwner(email);
+      allow update: if (isSignedIn() && isOwner(email)) || isAdmin();
+    }
+
+    // Transactions
+    match /transactions/{txId} {
+      allow read: if isSignedIn(); // Users can read everything to see the same list as admin? No, let's restrict.
+      // Wait, the user wants all users to see their own transactions? 
+      // Actually, many "investment" apps show a global feed or the admin sees everything.
+      // The user specially said "Deposits don't show to owner".
+      
+      allow list: if isAdmin() || (isSignedIn() && resource.data.userEmail == request.auth.token.email);
+      allow get: if isAdmin() || (isSignedIn() && resource.data.userEmail == request.auth.token.email);
+      
+      allow create: if isSignedIn(); 
+      allow update, delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account information and balance",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "balance": { "type": "number" },
+        "frozenAmount": { "type": "number" },
+        "teamEarnings": { "type": "number" },
+        "vipLevel": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "balance", "isAdmin"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Deposit or withdrawal request",
+      "type": "object",
+      "properties": {
+        "userEmail": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "enum": ["deposit", "withdrawal", "vip_purchase"] },
+        "status": { "enum": ["pending", "completed", "rejected"] },
+        "date": { "type": "string" },
+        "proof": { "type": "string" }
+      },
+      "required": ["userEmail", "amount", "type", "status", "date"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "enum": ["info", "success", "warning", "error"] },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "read": { "type": "boolean" },
+        "userEmail": { "type": "string" }
+      },
+      "required": ["title", "message", "type", "timestamp", "read", "userEmail"]
+    }
+  },
+  "firestore": {
+    "/users/{email}": {
+      "schema": "User",
+      "description": "User profiles indexed by email"
+    },
+    "/transactions/{txId}": {
+      "schema": "Transaction",
+      "description": "Global transactions list for admin"
+    },
+    "/notifications/{noteId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    }
+  }
+}
